@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.8.10/themes/smoothness/jquery-ui.css" type="text/css">
+    <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <title>Gold Price Viewer</title>
 </head>
 
@@ -15,7 +18,7 @@
     </div>
 
     <script>
-        // JavaScript code for fetching and displaying gold price
+
         const apiUrl = 'http://bcast.rakshabullion.com:7767/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/raksha';
         let goldData = null;
         let twentyTwoCaratPrice = null;
