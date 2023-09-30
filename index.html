@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.8.10/themes/smoothness/jquery-ui.css" type="text/css">
     <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.min.js"></script>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /> -->
     <title>Gold Price Viewer</title>
 </head>
 
@@ -19,23 +19,15 @@
 
     <script>
 
-        const apiUrl = 'http://bcast.rakshabullion.com:7767/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/raksha';
+        const apiUrl = 'https://clumsy-swimsuit-crab.cyclic.cloud/get-gold';
         let goldData = null;
         let twentyTwoCaratPrice = null;
 
         function getGoldData() {
-            const timestamp = Date.now();
-            const url = `${apiUrl}?_=${timestamp}`;
-
-            fetch(url)
-                .then(response => response.text())
+            fetch(apiUrl)
+                .then(response => response.json())
                 .then(data => {
-                    data.split("\n").forEach(line => {
-                        const columns = line.split("\t").map(col => col.trim()).filter(col => !!col);
-                        if (columns[1] === "GOLD 999 WITH GST") {
-                            goldData = parseInt(columns[3]);
-                        }
-                    });
+                    goldData = data.goldValue;
                     updateGoldPrice();
                 })
                 .catch(error => {
