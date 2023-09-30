@@ -90,6 +90,9 @@
         let twentyCaratPrice = null;
         let eighteenCaratPrice = null;
 
+        function roundToOnesPlace(num) {
+            return Math.round(num);
+        }
         function getGoldData() {
             fetch(apiUrl)
                 .then(response => response.json())
@@ -129,9 +132,9 @@
                 document.getElementById('goldPrice').textContent = `GOLD 24 CARAT: ${goldData}`;
                 document.getElementById('silverValue').textContent = `SILVER: ${silverData + 1500}`;
                 caratParser(goldData);
-                document.getElementById('twentyTwoCaratPrice').textContent = `GOLD 22 CARAT: ${twentyTwoCaratPrice}`;
-                document.getElementById('twentyCaratPrice').textContent = `GOLD 20 CARAT: ${twentyCaratPrice}`;
-                document.getElementById('eighteenCaratPrice').textContent = `GOLD 18 CARAT: ${eighteenCaratPrice}`;
+                document.getElementById('twentyTwoCaratPrice').textContent = `GOLD 22 CARAT: ${roundToOnesPlace(twentyTwoCaratPrice)}`;
+                document.getElementById('twentyCaratPrice').textContent = `GOLD 20 CARAT: ${roundToOnesPlace(twentyCaratPrice)}`;
+                document.getElementById('eighteenCaratPrice').textContent = `GOLD 18 CARAT: ${roundToOnesPlace(eighteenCaratPrice)}`;
             }
         }
 
