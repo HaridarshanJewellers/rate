@@ -24,7 +24,7 @@
         let twentyTwoCaratPrice = null;
 
         function getGoldData() {
-            fetch(apiUrl, { mode: 'no-cors'})
+            fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     goldData = data.goldValue;
