@@ -10,7 +10,7 @@
     <title>Haridarshan jewellers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-     <link rel="icon" type="image/x-icon"
+    <link rel="icon" type="image/x-icon"
         href="https://media.discordapp.net/attachments/1157563323844403220/1157590820397010944/JNDKJW_.jpg?ex=651929f6&is=6517d876&hm=33f1b63191527426afa5860ad79214e0956fb9a6b9a8eeb94c03e2d57e0880de&=&width=1042&height=1042">
 </head>
 
@@ -23,8 +23,9 @@
         </div>
 
     </div>
-    <div class="d-flex justify-content-center align-item-center">
+    <div class="d-flex flex-row gap-1 justify-content-center align-item-center">
         <p style="margin: 0;" id="currentDateTime"></p>
+        <p style="margin: 0;" id="currentDay"></p>
     </div>
     <div style=" background-color: black; height: 100%;">
 
@@ -143,6 +144,22 @@
         // Fetch gold data initially and then at a 5-second interval
         getGoldData();
         setInterval(getGoldData, 5000);
+        function getCurrentDay() {
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const now = new Date();
+            const dayIndex = now.getDay();
+            return daysOfWeek[dayIndex];
+        }
+
+        // Function to update the current day in the HTML element
+        function updateCurrentDay() {
+            const currentDayElement = document.getElementById('currentDay');
+            const currentDay = getCurrentDay();
+            currentDayElement.textContent = `(${currentDay})`;
+        }
+
+        // Update the current day immediately
+        updateCurrentDay();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
