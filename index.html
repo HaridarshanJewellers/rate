@@ -119,7 +119,7 @@
         // }
 
         function getGoldData() {
-            fetch(apiUrl)
+            fetch("https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihant")
                 .then(response => response.text())  // Fetch the response as text
                 .then(responseText => {
                     const lines = responseText.split("\n");  // Split the response into lines
@@ -132,11 +132,9 @@
                             .map(col => col.trim())
                             .filter(col => !!col);
 
-                        if (columns[1] === "GOLD 999 WITH GST") {
+                        if (columns[1] === "GOLD 999 IMPORTED WITH GST") {
+
                             goldData = parseInt(columns[3]);
-                        }
-                        if (columns[1] === "SILVER") {
-                            silverData = parseInt(columns[3]);
                         }
                     });
 
@@ -146,6 +144,39 @@
                     } else {
                         // Handle the case where gold data is not found
                         console.error('Gold data not found in the response');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching gold data:', error);
+                });
+        }
+        function getSilverData() {
+            fetch("https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihantsilver")
+                .then(response => response.text())  // Fetch the response as text
+                .then(responseText => {
+                    const lines = responseText.split("\n");  // Split the response into lines
+                    // Initialize the gold variable
+
+                    // Loop through each line and parse the data
+                    lines.forEach(line => {
+                        const columns = line
+                            .split("\t")
+                            .map(col => col.trim())
+                            .filter(col => !!col);
+                        if (columns[1] === "SILVER COSTING") {
+
+                            silverData = parseInt(columns[3]);
+
+                        }
+                    });
+
+                    if (silverData !== null) {
+                        // If gold data is found, updateGoldPrice() or do something with the gold value
+
+                        updateSilverPrice();
+                    } else {
+                        // Handle the case where gold data is not found
+                        console.error('Silver data not found in the response');
                     }
                 })
                 .catch(error => {
@@ -183,29 +214,11 @@
                 const gold22Element = document.getElementById('twentyTwoCaratPrice');
                 const gold20Element = document.getElementById('twentyCaratPrice');
                 const gold18Element = document.getElementById('eighteenCaratPrice');
-                const silverElement = document.getElementById('silverValue');
 
-                const previousSilverData = parseFloat(silverElement.textContent.replace('SILVER: ', ''));
                 const previousGoldData = parseFloat(goldPriceElement.textContent.replace('GOLD 24 CARAT: ', ''));
 
-                silverElement.textContent = `SILVER: ${silverData}`;
                 goldPriceElement.textContent = `GOLD 24 CARAT: ${goldData}`;
                 caratParser(goldData);
-
-
-                // Check if the silver price increased or decreased
-                if (silverData > previousSilverData) {
-                    silverElement.classList.remove('red-bg');
-                    silverElement.classList.add('green-bg');
-
-                } else if (silverData < previousGoldData) {
-                    silverElement.classList.remove('green-bg');
-                    silverElement.classList.add('red-bg');
-
-                } else {
-                    // If the price remains the same, remove background color classes
-                    silverElement.classList.remove('green-bg', 'red-bg');
-                }
 
                 // Check if the gold price increased or decreased
                 if (goldData > previousGoldData) {
@@ -236,7 +249,6 @@
 
                 // Set a timeout to remove the background color after 1 second
                 setTimeout(() => {
-                    silverElement.classList.remove('green-bg', 'red-bg');
                     goldPriceElement.classList.remove('green-bg', 'red-bg');
                     gold22Element.classList.remove('green-bg', 'red-bg');
                     gold20Element.classList.remove('green-bg', 'red-bg');
@@ -244,7 +256,6 @@
                 }, 1000);
 
                 document.getElementById('goldPrice').textContent = `GOLD 24 CARAT: ${goldData}`;
-                document.getElementById('silverValue').textContent = `SILVER: ${silverData + 1500}`;
                 caratParser(goldData);
                 document.getElementById('twentyTwoCaratPrice').textContent = `GOLD 22 CARAT: ${roundToOnesPlace(twentyTwoCaratPrice)}`;
                 document.getElementById('twentyCaratPrice').textContent = `GOLD 20 CARAT: ${roundToOnesPlace(twentyCaratPrice)}`;
@@ -252,9 +263,50 @@
             }
         }
 
+
+
+        function updateSilverPrice() {
+
+            if (silverData !== null) {
+
+                const silverElement = document.getElementById('silverValue');
+
+                const previousSilverData = parseFloat(silverElement.textContent.replace('SILVER: ', ''));
+
+
+                silverElement.textContent = `SILVER: ${silverData}`;
+
+
+
+                // Check if the silver price increased or decreased
+                if (silverData > previousSilverData) {
+                    silverElement.classList.remove('red-bg');
+                    silverElement.classList.add('green-bg');
+
+                } else if (silverData < previousSilverData) {
+                    silverElement.classList.remove('green-bg');
+                    silverElement.classList.add('red-bg');
+
+                } else {
+                    // If the price remains the same, remove background color classes
+                    silverElement.classList.remove('green-bg', 'red-bg');
+                }
+
+
+                // Set a timeout to remove the background color after 1 second
+                setTimeout(() => {
+                    silverElement.classList.remove('green-bg', 'red-bg');
+                }, 1000);
+
+                document.getElementById('silverValue').textContent = `SILVER: ${silverData + 1500}`;
+            }
+        }
+
         // Fetch gold data initially and then at a 5-second interval
         getGoldData();
-        setInterval(getGoldData, 30000);
+        getSilverData();
+        setInterval(getGoldData, 5000);
+        setInterval(getSilverData, 5000);
         function getCurrentDay() {
             const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const now = new Date();
