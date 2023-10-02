@@ -15,7 +15,15 @@
 </head>
 
 <body style="height: 100vh;" class="d-flex flex-column justify-content-between">
+    <style>
+        .green-bg {
+            background-color: green;
+        }
 
+        .red-bg {
+            background-color: red;
+        }
+    </style>
     <div style="background-color: #C7A63D;">
         <div class="d-flex flex-row justify-content-center align-item-center">
             <img style="height: 8rem;"
@@ -131,7 +139,72 @@
         }
 
         function updateGoldPrice() {
+
             if (goldData !== null) {
+                const goldPriceElement = document.getElementById('goldPrice');
+                const gold22Element = document.getElementById('twentyTwoCaratPrice');
+                const gold20Element = document.getElementById('twentyCaratPrice');
+                const gold18Element = document.getElementById('eighteenCaratPrice');
+                const silverElement = document.getElementById('silverValue');
+
+                const previousSilverData = parseFloat(silverElement.textContent.replace('SILVER: ', ''));
+                const previousGoldData = parseFloat(goldPriceElement.textContent.replace('GOLD 24 CARAT: ', ''));
+
+                silverElement.textContent = `SILVER: ${silverData}`;
+                goldPriceElement.textContent = `GOLD 24 CARAT: ${goldData}`;
+                caratParser(goldData);
+
+
+                // Check if the silver price increased or decreased
+                if (silverData > previousSilverData) {
+                    silverElement.classList.remove('red-bg');
+                    silverElement.classList.add('green-bg');
+
+                } else if (silverData < previousGoldData) {
+                    silverElement.classList.remove('green-bg');
+                    silverElement.classList.add('red-bg');
+
+                } else {
+                    // If the price remains the same, remove background color classes
+                    silverElement.classList.remove('green-bg', 'red-bg');
+                }
+
+                // Check if the gold price increased or decreased
+                if (goldData > previousGoldData) {
+                    goldPriceElement.classList.remove('red-bg');
+                    goldPriceElement.classList.add('green-bg');
+                    gold22Element.classList.remove('red-bg');
+                    gold22Element.classList.add('green-bg');
+                    gold20Element.classList.remove('red-bg');
+                    gold20Element.classList.add('green-bg');
+                    gold18Element.classList.remove('red-bg');
+                    gold18Element.classList.add('green-bg');
+                } else if (goldData < previousGoldData) {
+                    goldPriceElement.classList.remove('green-bg');
+                    goldPriceElement.classList.add('red-bg');
+                    gold22Element.classList.remove('green-bg');
+                    gold22Element.classList.add('red-bg');
+                    gold20Element.classList.remove('green-bg');
+                    gold20Element.classList.add('red-bg');
+                    gold18Element.classList.remove('green-bg');
+                    gold18Element.classList.add('red-bg');
+                } else {
+                    // If the price remains the same, remove background color classes
+                    goldPriceElement.classList.remove('green-bg', 'red-bg');
+                    gold22Element.classList.remove('green-bg', 'red-bg');
+                    gold20Element.classList.remove('green-bg', 'red-bg');
+                    gold18Element.classList.remove('green-bg', 'red-bg');
+                }
+
+                // Set a timeout to remove the background color after 1 second
+                setTimeout(() => {
+                    silverElement.classList.remove('green-bg', 'red-bg');
+                    goldPriceElement.classList.remove('green-bg', 'red-bg');
+                    gold22Element.classList.remove('green-bg', 'red-bg');
+                    gold20Element.classList.remove('green-bg', 'red-bg');
+                    gold18Element.classList.remove('green-bg', 'red-bg');
+                }, 1000);
+
                 document.getElementById('goldPrice').textContent = `GOLD 24 CARAT: ${goldData}`;
                 document.getElementById('silverValue').textContent = `SILVER: ${silverData + 1500}`;
                 caratParser(goldData);
