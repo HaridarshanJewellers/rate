@@ -42,8 +42,7 @@
                 <div style="border: 2px #C7A63D solid; width: 95%;"
                     class="d-flex flex-row justify-content-center align-item-center">
 
-                    <h5 style="margin: 0;     width: 100%;
-    text-align: center;" id="goldPrice" class="p-3 text-white">
+                    <h5 style="margin: 0;" id="goldPrice" class="p-3 text-white">
                     </h5>
                 </div>
 
@@ -52,8 +51,7 @@
                 <div style="border: 2px #C7A63D solid; width: 95%;"
                     class="d-flex flex-row justify-content-center align-item-center">
 
-                    <h5 style="margin: 0;     width: 100%;
-    text-align: center;" id="twentyTwoCaratPrice" class="p-3 text-white">
+                    <h5 style="margin: 0;" id="twentyTwoCaratPrice" class="p-3 text-white">
                     </h5>
                 </div>
 
@@ -62,16 +60,14 @@
             <div class="d-flex justify-content-center align-item-center pt-4">
                 <div style="border: 2px #C7A63D solid; width: 95%;"
                     class="d-flex flex-row justify-content-center align-item-center">
-                    <h5 style="margin: 0;     width: 100%;
-    text-align: center;" id="twentyCaratPrice" class="p-3 text-white">
+                    <h5 style="margin: 0;" id="twentyCaratPrice" class="p-3 text-white">
                     </h5>
                 </div>
             </div>
             <div class="d-flex justify-content-center align-item-center pt-4">
                 <div style="border: 2px #C7A63D solid; width: 95%;"
                     class="d-flex flex-row justify-content-center align-item-center">
-                    <h5 style="margin: 0;     width: 100%;
-    text-align: center;" id="eighteenCaratPrice" class="p-3 text-white">
+                    <h5 style="margin: 0;" id="eighteenCaratPrice" class="p-3 text-white">
                     </h5>
                 </div>
 
@@ -79,8 +75,7 @@
             <div class="d-flex justify-content-center align-item-center pt-4">
                 <div style="border: 2px #C7A63D solid; width: 95%;"
                     class="d-flex flex-row justify-content-center align-item-center">
-                    <h5 style="margin: 0;     width: 100%;
-    text-align: center;" id="silverValue" class="p-3 text-white">
+                    <h5 style="margin: 0;" id="silverValue" class="p-3 text-white">
                     </h5>
                 </div>
 
@@ -99,7 +94,7 @@
     </div>
     <script>
 
-        const apiUrl = 'https://corsproxy.io/http://localhost:3000/get-gold';
+        const apiUrl = 'http://bcast.rakshabullion.com:7767/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/raksha';
         let goldData = null;
         let silverData = null;
         let twentyTwoCaratPrice = null;
@@ -109,18 +104,56 @@
         function roundToOnesPlace(num) {
             return Math.round(num);
         }
+        // function getGoldData() {
+        //     fetch(apiUrl)
+        //         .then(response => response.json())
+        //         .then(data => {
+
+        //             goldData = data.goldValue;
+        //             silverData = data.silverValue;
+        //             updateGoldPrice();
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching gold data:', error);
+        //         });
+        // }
+
         function getGoldData() {
             fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    goldData = data.goldValue;
-                    silverData = data.silverValue;
-                    updateGoldPrice();
+                .then(response => response.text())  // Fetch the response as text
+                .then(responseText => {
+                    const lines = responseText.split("\n");  // Split the response into lines
+                    // Initialize the gold variable
+
+                    // Loop through each line and parse the data
+                    lines.forEach(line => {
+                        const columns = line
+                            .split("\t")
+                            .map(col => col.trim())
+                            .filter(col => !!col);
+
+                        if (columns[1] === "GOLD 999 WITH GST") {
+                            goldData = parseInt(columns[3]);
+                        }
+                        if (columns[1] === "SILVER") {
+                            silverData = parseInt(columns[3]);
+                        }
+                    });
+
+                    if (goldData !== null) {
+                        // If gold data is found, updateGoldPrice() or do something with the gold value
+                        updateGoldPrice();
+                    } else {
+                        // Handle the case where gold data is not found
+                        console.error('Gold data not found in the response');
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching gold data:', error);
                 });
         }
+
+
 
         function updateDateTime() {
             const currentDateTimeElement = document.getElementById('currentDateTime');
@@ -221,7 +254,7 @@
 
         // Fetch gold data initially and then at a 5-second interval
         getGoldData();
-        setInterval(getGoldData, 5000);
+        setInterval(getGoldData, 30000);
         function getCurrentDay() {
             const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const now = new Date();
