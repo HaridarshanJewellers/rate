@@ -35,9 +35,12 @@
         <p style="margin: 0;" id="currentDateTime"></p>
         <p style="margin: 0;" id="currentDay"></p>
     </div>
-    <div id="off"
-        style=" display: none !important; background-color: black; height: 100%; color:  white; font-size: 3rem;"
-        class="d-flex justify-content-center align-items-center "> LIVE RATES ARE OFF TODAY</div>
+    <div id="off2" style="height: 100%;">
+
+        <div id="off"
+            style=" display: none !important; background-color: black; height: 100%; color:  white; font-size: 3rem;"
+            class="d-flex justify-content-center align-items-center "> LIVE RATES ARE OFF TODAY</div>
+    </div>
     <div style=" background-color: black; height: 100%;" id="main">
 
         <div class="d-flex flex-column justify-content-center align-item-center p-4">
@@ -85,6 +88,7 @@
             </div>
         </div>
     </div>
+
     <div style="background-color: #C7A63D;" class="py-3">
         <div class="d-flex flex-row justify-content-center align-item-center" style="font-size: 0.8rem;
         font-weight: 600; text-align: center;">
@@ -294,7 +298,7 @@
         getGoldData();
         getSilverData();
         setInterval(getGoldData, 5000);
-        setInterval(fetchPara, 10000);
+        setInterval(fetchPara, 5000);
         setInterval(getSilverData, 5000);
         function getCurrentDay() {
             const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -336,13 +340,18 @@
         function updateVisibility() {
             const view = document.getElementById('main');
             const off = document.getElementById('off');
+            const off2 = document.getElementById('off2');
 
             if (can_show === true) {
                 view.style.display = 'block'; // Show the body content
-off.style.displayer = 'none';
+                off.style.display = 'none !important'
+                off2.style.display = 'none'
+
             } else {
                 view.style.display = 'none'; // Hide the body content
                 off.style.display = 'block'; // Hide the body content
+                off2.style.display = 'block'
+
             }
         }
     </script>
