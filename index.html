@@ -35,7 +35,10 @@
         <p style="margin: 0;" id="currentDateTime"></p>
         <p style="margin: 0;" id="currentDay"></p>
     </div>
-    <div style=" background-color: black; height: 100%;">
+    <div id="off"
+        style=" display: none !important; background-color: black; height: 100%; color:  white; font-size: 3rem;"
+        class="d-flex justify-content-center align-items-center "> LIVE RATES ARE OFF TODAY</div>
+    <div style=" background-color: black; height: 100%;" id="main">
 
         <div class="d-flex flex-column justify-content-center align-item-center p-4">
             <div class="d-flex justify-content-center align-item-center">
@@ -93,6 +96,7 @@
         </div>
     </div>
     <script>
+        fetchPara();
 
         const apiUrl = 'https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihant';
         let goldData = null;
@@ -100,86 +104,80 @@
         let twentyTwoCaratPrice = null;
         let twentyCaratPrice = null;
         let eighteenCaratPrice = null;
+        let can_show = null;
+        let gold_add = null
+        let silver_add = null
+        let gold_twentytwo = null
+        let gold_twenty = null
+        let gold_eighteen = null
 
         function roundToOnesPlace(num) {
             return Math.round(num);
         }
-        // function getGoldData() {
-        //     fetch(apiUrl)
-        //         .then(response => response.json())
-        //         .then(data => {
-
-        //             goldData = data.goldValue;
-        //             silverData = data.silverValue;
-        //             updateGoldPrice();
-        //         })
-        //         .catch(error => {
-        //             console.error('Error fetching gold data:', error);
-        //         });
-        // }
 
         function getGoldData() {
-            fetch("https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihant")
-                .then(response => response.text())  // Fetch the response as text
-                .then(responseText => {
-                    const lines = responseText.split("\n");  // Split the response into lines
-                    // Initialize the gold variable
+            if (gold_add && can_show) {
+                fetch("https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihant")
+                    .then(response => response.text())
+                    .then(responseText => {
+                        const lines = responseText.split("\n");
 
-                    // Loop through each line and parse the data
-                    lines.forEach(line => {
-                        const columns = line
-                            .split("\t")
-                            .map(col => col.trim())
-                            .filter(col => !!col);
 
-                        if (columns[1] === "GOLD 999 IMPORTED WITH GST") {
 
-                            goldData = parseInt(columns[3]) + 400;
+                        lines.forEach(line => {
+                            const columns = line
+                                .split("\t")
+                                .map(col => col.trim())
+                                .filter(col => !!col);
+
+                            if (columns[1] === "GOLD 999 IMPORTED WITH GST") {
+
+                                goldData = parseInt(columns[3]) + gold_add;
+                            }
+                        });
+
+                        if (goldData !== null) {
+
+                            updateGoldPrice();
+                        } else {
+                            console.error('Gold data not found in the response');
                         }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching gold data:', error);
                     });
-
-                    if (goldData !== null) {
-                        // If gold data is found, updateGoldPrice() or do something with the gold value
-                        updateGoldPrice();
-                    } else {
-                        // Handle the case where gold data is not found
-                        console.error('Gold data not found in the response');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching gold data:', error);
-                });
+            }
         }
         function getSilverData() {
-            fetch("https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihantsilver")
-                .then(response => response.text())  // Fetch the response as text
-                .then(responseText => {
-                    const lines = responseText.split("\n");  // Split the response into lines
-                    // Initialize the gold variable
+            if (gold_add && can_show) {
 
-                    // Loop through each line and parse the data
-                    lines.forEach(line => {
-                        const columns = line
-                            .split("\t")
-                            .map(col => col.trim())
-                            .filter(col => !!col);
-                        if (columns[1] === "SILVER WITH GST") {
+                fetch("https://bcast.arihantspot.com:7768/VOTSBroadcastStreaming/Services/xml/GetLiveRateByTemplateID/arihantsilver")
+                    .then(response => response.text())
+                    .then(responseText => {
+                        const lines = responseText.split("\n");
+                        lines.forEach(line => {
+                            const columns = line
+                                .split("\t")
+                                .map(col => col.trim())
+                                .filter(col => !!col);
+                            if (columns[1] === "SILVER WITH GST") {
 
-                            silverData = parseInt(columns[3]);
+                                silverData = parseInt(columns[3]) + silver_add;
 
+                            }
+                        });
+
+                        if (silverData !== null) {
+                            updateSilverPrice();
+                        } else {
+
+                            console.error('Silver data not found in the response');
                         }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching gold data:', error);
                     });
-
-                    if (silverData !== null) {
-                        updateSilverPrice();
-                    } else {
-                        // Handle the case where gold data is not found
-                        console.error('Silver data not found in the response');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching gold data:', error);
-                });
+            }
         }
 
 
@@ -195,14 +193,14 @@
             currentDateTimeElement.textContent = `${dateTimeString}`;
         }
 
-        // Update the date and time immediately and set an interval to update it every second
+
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
         function caratParser(rate) {
-            twentyTwoCaratPrice = (rate * 96) / 100;
-            twentyCaratPrice = (rate * 90) / 100;
-            eighteenCaratPrice = (rate * 82) / 100;
+            twentyTwoCaratPrice = (rate * gold_twentytwo) / 100;
+            twentyCaratPrice = (rate * gold_twenty) / 100;
+            eighteenCaratPrice = (rate * gold_eighteen) / 100;
         }
 
         function updateGoldPrice() {
@@ -271,10 +269,10 @@
                 silverElement.textContent = `SILVER: ${silverData}`;
 
                 // Check if the silver price increased or decreased
-                if (silverData + 1500 > previousSilverData) {
+                if (silverData > previousSilverData) {
                     silverElement.classList.remove('red-bg');
                     silverElement.classList.add('green-bg');
-                } else if (silverData + 1500 < previousSilverData) {
+                } else if (silverData < previousSilverData) {
                     silverElement.classList.remove('green-bg');
                     silverElement.classList.add('red-bg');
                 } else {
@@ -287,7 +285,7 @@
                     silverElement.classList.remove('green-bg', 'red-bg');
                 }, 1000);
 
-                document.getElementById('silverValue').textContent = `SILVER: ${silverData + 1500}`;
+                document.getElementById('silverValue').textContent = `SILVER: ${silverData}`;
             }
         }
 
@@ -296,6 +294,7 @@
         getGoldData();
         getSilverData();
         setInterval(getGoldData, 5000);
+        setInterval(fetchPara, 50000);
         setInterval(getSilverData, 5000);
         function getCurrentDay() {
             const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -313,6 +312,39 @@
 
         // Update the current day immediately
         updateCurrentDay();
+
+        function fetchPara() {
+            const url = "https://script.google.com/macros/s/AKfycbxKT-L3O08ffRQ-Wfv1QhYnJ3HpNLnSaTUq2KZ4Ur7KkZPhEdyjGatgVNjgu9SskSoACg/exec";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    gold_add = data.data[0].gold_add;
+                    silver_add = data.data[0].silver_add;
+                    gold_twentytwo = data.data[0].gold_twentytwo;
+                    gold_twenty = data.data[0].gold_twenty;
+                    gold_eighteen = data.data[0].gold_eighteen;
+                    can_show = data.data[0].can_show;
+                    getGoldData();
+                    getSilverData();
+                    updateVisibility();
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+        function updateVisibility() {
+            const view = document.getElementById('main');
+            const off = document.getElementById('off');
+
+            if (can_show === true) {
+                view.style.display = 'block'; // Show the body content
+
+            } else {
+                view.style.display = 'none'; // Hide the body content
+                off.style.display = 'block'; // Hide the body content
+            }
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
