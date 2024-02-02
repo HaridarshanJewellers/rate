@@ -35,6 +35,7 @@
         <p style="margin: 0;" id="currentDateTime"></p>
         <p style="margin: 0;" id="currentDay"></p>
     </div>
+
     <div id="off2" style="height: 100%;">
 
         <div id="off"
@@ -101,6 +102,11 @@
         font-weight: 600;">
             CONTACT US - 9425733322
         </div>
+        
+        <div class="d-flex flex-row justify-content-center align-item-center">
+<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1135779/t/3"></script>
+        </div>
+        
     </div>
     <script>
         fetchPara();
@@ -137,9 +143,9 @@
                                 .map(col => col.trim())
                                 .filter(col => !!col);
 
-                            if (columns[1] === "GOLD 999 IMPORTED WITH GST") {
+                            if (columns[1].includes( "GOLD 999 IMP WITH GST")) {
 
-                                goldData = parseInt(columns[3]) + gold_add;
+                                goldData = parseInt(columns[4]) + gold_add;
                             }
                         });
 
@@ -167,7 +173,7 @@
                                 .split("\t")
                                 .map(col => col.trim())
                                 .filter(col => !!col);
-                            if (columns[1] === "SILVER WITH GST") {
+                            if (columns[1] === "SILVER COSTING (PREM) RATE CUT") {
 
                                 silverData = parseInt(columns[3]) + silver_add;
 
