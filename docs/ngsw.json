@@ -1,0 +1,120 @@
+{
+  "configVersion": 1,
+  "timestamp": 1766167025108,
+  "index": "/rate/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/rate/favicon.ico",
+        "/rate/index.html",
+        "/rate/main.a7d994d305422462.js",
+        "/rate/manifest.webmanifest",
+        "/rate/polyfills.bd29139a87ae4d13.js",
+        "/rate/runtime.e317caccb935e73d.js",
+        "/rate/scripts.425520de70bbab43.js",
+        "/rate/styles.7578ae0c5012ac87.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/rate/assets/design_00001.png",
+        "/rate/assets/design_00002.png",
+        "/rate/assets/design_00003.png",
+        "/rate/assets/icons/icon-128x128.png",
+        "/rate/assets/icons/icon-144x144.png",
+        "/rate/assets/icons/icon-152x152.png",
+        "/rate/assets/icons/icon-192x192.png",
+        "/rate/assets/icons/icon-384x384.png",
+        "/rate/assets/icons/icon-512x512.png",
+        "/rate/assets/icons/icon-72x72.png",
+        "/rate/assets/icons/icon-96x96.png",
+        "/rate/fa-brands-400.86ee2658f0f3b5a5.woff2",
+        "/rate/fa-brands-400.8eaf0c8893de015e.ttf",
+        "/rate/fa-regular-400.849b82e233cfe2f9.woff2",
+        "/rate/fa-regular-400.bd1cf947e4932a4d.ttf",
+        "/rate/fa-solid-900.7a5aa5abd625137f.ttf",
+        "/rate/fa-solid-900.ee6983981ffcbb41.woff2",
+        "/rate/fa-v4compatibility.59487ca3d8487240.woff2",
+        "/rate/fa-v4compatibility.c63df8a6c67912d1.ttf"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "github-images",
+      "patterns": [
+        "https:\\/\\/raw\\.githubusercontent\\.com\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 2592000000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/rate/assets/design_00001.png": "65fbec769715708adbc82fccf4304d82d007fc4f",
+    "/rate/assets/design_00002.png": "f8efde7a39542b0f2a539d296a1127a24ea978a6",
+    "/rate/assets/design_00003.png": "8b552296d9aa51ba8db130e845a4113f78df2403",
+    "/rate/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/rate/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/rate/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/rate/assets/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/rate/assets/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/rate/assets/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/rate/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/rate/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/rate/fa-brands-400.86ee2658f0f3b5a5.woff2": "31c30351084e2670bbe5c47bd342e11540a68717",
+    "/rate/fa-brands-400.8eaf0c8893de015e.ttf": "da6f537cd597b76d264970f1c95e4beebc82fde9",
+    "/rate/fa-regular-400.849b82e233cfe2f9.woff2": "e9b6f5b842be227e2423733feb961dd6cb804066",
+    "/rate/fa-regular-400.bd1cf947e4932a4d.ttf": "6e7f0651059eea9783ea8b28892b2c979c2f7f30",
+    "/rate/fa-solid-900.7a5aa5abd625137f.ttf": "780a8ff16ebb681f85d5d30fac94ebe845a12b5e",
+    "/rate/fa-solid-900.ee6983981ffcbb41.woff2": "7cd8afd6501962fda35d66f0e4c3b8815ac471d8",
+    "/rate/fa-v4compatibility.59487ca3d8487240.woff2": "4fd82f39237a3e52cb4e311d1961bbb47353a147",
+    "/rate/fa-v4compatibility.c63df8a6c67912d1.ttf": "ad415f99aab4d9bf17e523f484a377f839ca8c3c",
+    "/rate/favicon.ico": "04c278dba3e54393c4c980f7fd4dcd43796ef813",
+    "/rate/index.html": "8e04ec737a7d3acd183615e31b9777959005b996",
+    "/rate/main.a7d994d305422462.js": "b39bd179c8b00e38ba3a73da0c63dab14659e80a",
+    "/rate/manifest.webmanifest": "c3e4531e457a3a0eb2bf6ea580963050202f67ec",
+    "/rate/polyfills.bd29139a87ae4d13.js": "070f22737ce08c0e55adc13dbee9081dfcbc91f4",
+    "/rate/runtime.e317caccb935e73d.js": "b73bf94b9ee536d9b062c727d60968bc59cb183a",
+    "/rate/scripts.425520de70bbab43.js": "7211c1b6834a647c20c392e955cec24fcf063731",
+    "/rate/styles.7578ae0c5012ac87.css": "21afd8a5a05e5a183c0cb452779927d9efa0d1ff"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
