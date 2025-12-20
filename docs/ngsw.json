@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1766168333974,
+  "timestamp": 1766198278406,
   "index": "/rate/index.html",
   "assetGroups": [
     {
@@ -57,13 +57,11 @@
     {
       "name": "product-images-imgbb",
       "patterns": [
-        "https:\\/\\/i\\.ibb\\.co\\/.*",
-        "https:\\/\\/ibb\\.co\\/.*"
+        "https:\\/\\/i\\.ibb\\.co\\/.*"
       ],
       "strategy": "performance",
-      "maxSize": 150,
-      "maxAge": 2592000000,
-      "timeoutMs": 5000,
+      "maxSize": 1500,
+      "maxAge": 31536000000,
       "cacheQueryOptions": {
         "ignoreVary": true
       },
