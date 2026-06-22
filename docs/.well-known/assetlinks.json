@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.haridarshanjewellers.app",
+      "sha256_cert_fingerprints": [
+        "9D:B6:1A:7B:7A:16:FD:C5:A5:92:12:4C:21:7D:EE:CA:FA:49:31:37:CF:AF:ED:7C:01:3E:FA:64:90:29:E4:FF"
+      ]
+    }
+  }
+]
